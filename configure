@@ -1,0 +1,69 @@
+#**Install the AWS CLI on a Red Hat Linux instance**
+
+  *Steps*
+  1. After connecting to aws with .pem/.ppk file
+     Download file into current directory 
+     run the following command with -o option:
+      *curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"*
+
+  2. Unzip installer command with -u option
+      *unzip -u awscliv2.zip*
+
+  3. run the install program, run the following command. This sudo command grants write permissions to the directory. The installation command in the code snippet uses a file named install in the unzipped aws directory to install the AWS CLI. 
+      *sudo ./aws/install*
+
+  4. confirm the installation
+      *aws --version*
+
+  For Help commands in aws
+      *aws help*
+
+  **Configure the AWS CLI to connect to your AWS Account**
+
+1. Run the configure command
+    *aws configure*
+
+    At the prompt, configure the following:
+
+     * AWS Access Key ID: Choose the Details dropdown list, and choose Show. Copy and paste the AccessKey value into the terminal window.
+     * AWS Secret Access Key: Copy and paste the SecretKey value into the terminal window.
+     * Default region name: Enter us-west-2
+     * Default output format: Enter json
+
+2. Given an empty config file, 
+
+* the following commands:
+
+  * $ aws configure set aws_access_key_id default_access_key
+  * $ aws configure set aws_secret_access_key default_secret_key
+  * $ aws configure set default.region us-west-2
+  * $ aws configure set default.ca_bundle /path/to/ca-bundle.pem
+  * $ aws configure set region us-west-1 --profile testing
+  * $ aws configure set profile.testing2.region eu-west-1
+  * $ aws configure set preview.cloudsearch true
+
+    
+* will produce the following config file:
+
+  [default]
+  region = us-west-2
+  ca_bundle = /path/to/ca-bundle.pem
+
+  [profile testing]
+  region = us-west-1
+
+  [profile testing2]
+  region = eu-west-1
+
+  [preview]
+  cloudsearch = true
+ 
+* and the following ~/.aws/credentials file:
+
+  [default]
+  aws_access_key_id = default_access_key
+  aws_secret_access_key = default_secret_key
+
+
+**Observe IAM configuration details by using the AWS CLI**
+    aws iam list-users
